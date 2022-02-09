@@ -9,19 +9,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class IndexController extends AbstractController
-{
+class IndexController extends AbstractController {
     #[Route('/', name: 'index')]
-    public function index(PostcodesApiService $apiPostcodeGetter, PostcodeServiceManager $factory): Response
-    {
+    public function index(PostcodesApiService $apiPostcodeGetter, PostcodeServiceManager $factory): Response {
         return $this->render('index/index.html.twig', [
             'controller_name' => 'IndexController',
         ]);
     }
 
     #[Route('/getinfo', name: 'postcodeinfo')]
-    public function showPostcodeInfo(Request $request, PostcodesApiService $apiPostcodeGetter, PostcodeServiceManager $factory)
-    {
+    public function showPostcodeInfo(Request $request, PostcodesApiService $apiPostcodeGetter, PostcodeServiceManager $factory) {
         $service = $factory->findByType('postcodes.io');
         $postcode = $request->query->get('postcode');
 
