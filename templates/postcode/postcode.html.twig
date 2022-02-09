@@ -1,0 +1,34 @@
+{% extends 'index/index.html.twig' %}
+{% block postcode %}
+    <div class="container">
+        <div class="row justify-content-center p-3 m-3">
+            {% if address is defined %}
+                <div id="map" data-longitude="{{ address.longitude }}" data-latitude="{{ address.latitude }}"
+                     style="width: 600px; height: 400px"></div>
+                <script type="text/javascript">
+                    var map = document.getElementById('map')
+
+                    ymaps.ready(init);
+
+                    function init() {
+                        // Создание карты.
+                        var myMap = new ymaps.Map("map", {
+                                center: [map.dataset.longitude, map.dataset.latitude],
+                                zoom: 12,
+                            }),
+
+                            myGeoObject = new ymaps.GeoObject({
+                                geometry: {
+                                    type: "Point",
+                                    coordinates: [map.dataset.longitude, map.dataset.latitude],
+                                },
+                            });
+
+                        myMap.geoObjects
+                            .add(myGeoObject)
+                    }
+                </script>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
